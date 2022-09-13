@@ -1,0 +1,9 @@
+*.pyc
+db.sqlite3
+index.html
+test.js
+sim.py
+-- SQLite.sql
+.env
+staticfiles
+js.json
