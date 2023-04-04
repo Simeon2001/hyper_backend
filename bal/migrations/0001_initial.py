@@ -15,36 +15,83 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='CompayUser',
+            name="CompayUser",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('country', models.CharField(default='Nigeria', max_length=20)),
-                ('currency', models.CharField(blank=True, default='Naira', max_length=10)),
-                ('account_number', models.BigIntegerField(default=0)),
-                ('account_name', models.CharField(default='CISCOQUAN', max_length=50)),
-                ('bank_name', models.CharField(default='GTB', max_length=20)),
-                ('bitcoin_address', models.CharField(blank=True, max_length=30)),
-                ('mobile_number', models.BigIntegerField(default=0)),
-                ('date_added', models.DateTimeField(auto_now_add=True)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("country", models.CharField(default="Nigeria", max_length=20)),
+                (
+                    "currency",
+                    models.CharField(blank=True, default="Naira", max_length=10),
+                ),
+                ("account_number", models.BigIntegerField(default=0)),
+                ("account_name", models.CharField(default="CISCOQUAN", max_length=50)),
+                ("bank_name", models.CharField(default="GTB", max_length=20)),
+                ("bitcoin_address", models.CharField(blank=True, max_length=30)),
+                ("mobile_number", models.BigIntegerField(default=0)),
+                ("date_added", models.DateTimeField(auto_now_add=True)),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='UsdtWallet',
+            name="UsdtWallet",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('balance', models.BigIntegerField(default=0)),
-                ('date_added', models.DateTimeField(auto_now_add=True)),
-                ('cname', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='cnames', to='bal.compayuser')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("balance", models.BigIntegerField(default=0)),
+                ("date_added", models.DateTimeField(auto_now_add=True)),
+                (
+                    "cname",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="cnames",
+                        to="bal.compayuser",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='FiatWallet',
+            name="FiatWallet",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('balance', models.BigIntegerField(default=0)),
-                ('date_added', models.DateTimeField(auto_now_add=True)),
-                ('name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='names', to='bal.compayuser')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("balance", models.BigIntegerField(default=0)),
+                ("date_added", models.DateTimeField(auto_now_add=True)),
+                (
+                    "name",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="names",
+                        to="bal.compayuser",
+                    ),
+                ),
             ],
         ),
     ]

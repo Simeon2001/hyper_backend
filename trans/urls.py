@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from trans import views
 
 urlpatterns = [
     path("trans", views.api_algo, name="apitrans/"),

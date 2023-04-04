@@ -1,4 +1,4 @@
-from .models import ResetToken
+from authr.models import ResetToken
 from django.contrib.auth.models import User
 from dotenv import load_dotenv
 import os
@@ -17,7 +17,13 @@ sender = os.getenv("SENDER")
 password = os.getenv("PASSWORD")
 
 # function to generate otp code
-def send_token(email,name):
+def send_token(email, name):
+    """
+    this function ask for your email and name
+    of user you want to send mail to
+    e.g: send_token("jesusanyasimeon@gmail.com", "simeon")
+    """
+
     msg = """\
     hello {0},
     To reset your hyper account, please use the following OTP:
@@ -27,10 +33,11 @@ def send_token(email,name):
     regards
 
     Mozzie
-    """.format(name,otp)
+    """.format(
+        name, otp
+    )
     yag = yagmail.SMTP(sender, password)
-    yag.send(email, 'Reset Token', msg)
+    yag.send(email, "Reset Token", msg)
     print("mail successfully sent")
     user = User.objects.get(username=name)
-    ResetToken.objects.create(user=user,token=otp)
-
+    ResetToken.objects.create(user=user, token=otp)

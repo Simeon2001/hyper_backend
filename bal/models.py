@@ -27,6 +27,7 @@ class CompayUser(models.Model):
             return answer
 
 
+# this model store each user balance
 class FiatWallet(models.Model):
     name = models.ForeignKey(
         CompayUser, on_delete=models.CASCADE, blank=False, related_name="names"

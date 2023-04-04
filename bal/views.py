@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .serializers import CompaySerial, BtcSerializer, FiatSerializer
-from .models import CompayUser, FiatWallet, UsdtWallet
+from bal.serializers import CompaySerial, BtcSerializer, FiatSerializer
+from bal.models import CompayUser, FiatWallet, UsdtWallet
 from rest_framework.decorators import (
     api_view,
     permission_classes,
@@ -65,12 +65,12 @@ def checker(request):
         return Response({"status": True, "balance": balance}, status=status.HTTP_200_OK)
     except CompayUser.DoesNotExist:
         return Response(
-                {
-                    "status": False,
-                    "message": "Create your profile account",
-                },
-                status=status.HTTP_401_UNAUTHORIZED,
-            ) 
+            {
+                "status": False,
+                "message": "Create your profile account",
+            },
+            status=status.HTTP_401_UNAUTHORIZED,
+        )
 
 
 # crypto balance
@@ -85,22 +85,24 @@ def crypto_balance(request):
     return Response(serializer_class.data)
 
 
+# this function get transcation notification/user
 @api_view(["get"])
 @permission_classes([IsAuthenticated])
-# @authentication_classes([TokenAuthentication])
 def notification(request):
     logged = request.user
     try:
         user = CompayUser.objects.get(user=logged)
         wallet = FiatWallet.objects.get(name=user)
-        notify_user = Transaction.objects.extra(where=["send_id=%s OR receive_id=%s"],params=[wallet.id,wallet.id]).order_by("-date_added")
-        serializer_class = Transact_Serial(notify_user,many=True)
+        notify_user = Transaction.objects.extra(
+            where=["send_id=%s OR receive_id=%s"], params=[wallet.id, wallet.id]
+        ).order_by("-date_added")
+        serializer_class = Transact_Serial(notify_user, many=True)
         return Response(serializer_class.data)
     except CompayUser.DoesNotExist:
         return Response(
-                {
-                    "status": False,
-                    "message": "Create your profile account",
-                },
-                status=status.HTTP_401_UNAUTHORIZED,
-            ) 
+            {
+                "status": False,
+                "message": "Create your profile account",
+            },
+            status=status.HTTP_401_UNAUTHORIZED,
+        )

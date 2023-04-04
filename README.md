@@ -7,6 +7,9 @@
  * with this form it can be use as a payroll to pay family member even worker, because when you collect the usernames using the form you can reuse the collected username to pay them next time.
  * you can also create a unique form to store account number and amount to be paid for each of your workers and pay them there salary with just one click.
 
+## URL
+ Frontend Url: https://hyper-beta.vercel.app
+
  ## TUTORIALS
 
 * TO CREATE AN ACCOUNT USE http://127.0.0.1:8000/api/register then with a post request containing the json data:

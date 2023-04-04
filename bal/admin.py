@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CompayUser, FiatWallet, UsdtWallet
+from bal.models import CompayUser, FiatWallet, UsdtWallet
 
 # Register your models here.
 

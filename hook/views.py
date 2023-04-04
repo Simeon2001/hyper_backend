@@ -6,13 +6,12 @@ from bal.models import FiatWallet, CompayUser
 from pay.models import PayLinks
 import json
 
-# Create your views here.
+# webhook function
 @csrf_exempt
 @require_POST
 def pay_hook(request):
     bod = request.body
     resp = json.loads(bod)
-    #    print(resp)
     event = resp["data"]["status"]
     if event == "success":
         amount = int((resp["data"]["amount"]))

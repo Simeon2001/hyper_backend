@@ -7,9 +7,16 @@ from rest_framework.decorators import (
 )
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from hook.payapi import charge, customer, total_transcation, nuban, transfer_cash, transfer_code
+from hook.payapi import (
+    charge,
+    customer,
+    total_transcation,
+    nuban,
+    transfer_cash,
+    transfer_code,
+)
 from django.contrib.auth.models import User
-from .models import CustomerInfo
+from pay.models import CustomerInfo
 from bal.models import CompayUser, FiatWallet
 from pay.models import PayLinks, MultiPay
 from rest_framework.authentication import TokenAuthentication
@@ -191,11 +198,15 @@ def withdraw_funds(request):
             )
         else:
             bank_code = "hello"
-            code = transfer_code(user_info.account_name,user_info.account_number,bank_code)
+            code = transfer_code(
+                user_info.account_name, user_info.account_number, bank_code
+            )
             if code["status"]:
                 ex_code = code["data"]["recipient_code"]
-                cash_out = transfer_cash(ex_code,real_amount)
-                msg = "{0} transferred to {1}, {2}".format(amount,user_info.account_name,user_info.account_number)
+                cash_out = transfer_cash(ex_code, real_amount)
+                msg = "{0} transferred to {1}, {2}".format(
+                    amount, user_info.account_name, user_info.account_number
+                )
                 return Response(
                     {"status": False, "message": msg},
                     status=status.HTTP_202_ACCEPTED,
@@ -204,4 +215,3 @@ def withdraw_funds(request):
                 {"status": False, "message": "invalid account details"},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
-

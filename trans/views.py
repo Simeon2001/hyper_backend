@@ -10,7 +10,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth.models import User
 from django.contrib import messages
 from bal.models import FiatWallet, CompayUser
-from .models import Transaction
+from trans.models import Transaction
 from rest_framework.authentication import TokenAuthentication
 from pay.models import MultiPay
 from rest_framework import status
@@ -40,7 +40,11 @@ def api_algo(request):
                 v = User.objects.get(username=receive)
                 try:
                     x = CompayUser.objects.get(user=v.id)
-                    if (charges_all) > (mine_bal) or charges_all == 1000 or com_user == x:
+                    if (
+                        (charges_all) > (mine_bal)
+                        or charges_all == 1000
+                        or com_user == x
+                    ):
                         return Response(
                             {
                                 "status": False,
@@ -71,8 +75,8 @@ def api_algo(request):
                     )
                 except CompayUser.DoesNotExist:
                     return Response(
-                    {"status": False, "message": "user have not created profile"},
-                    status=status.HTTP_404_NOT_FOUND,
+                        {"status": False, "message": "user have not created profile"},
+                        status=status.HTTP_404_NOT_FOUND,
                     )
             except User.DoesNotExist:
                 return Response(

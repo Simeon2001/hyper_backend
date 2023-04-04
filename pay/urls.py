@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from pay import views
 
 urlpatterns = [
     path("link", views.generate, name="apitrans/"),

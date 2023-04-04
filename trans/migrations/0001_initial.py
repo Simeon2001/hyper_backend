@@ -9,28 +9,66 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('bal', '0001_initial'),
+        ("bal", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Transaction',
+            name="Transaction",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('amount', models.IntegerField(default=0)),
-                ('date_added', models.DateTimeField(auto_now_add=True)),
-                ('reason', models.TextField(blank=True, default='payment', max_length=30)),
-                ('receive', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='receiving', to='bal.fiatwallet')),
-                ('send', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sending', to='bal.fiatwallet')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("amount", models.IntegerField(default=0)),
+                ("date_added", models.DateTimeField(auto_now_add=True)),
+                (
+                    "reason",
+                    models.TextField(blank=True, default="payment", max_length=30),
+                ),
+                (
+                    "receive",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="receiving",
+                        to="bal.fiatwallet",
+                    ),
+                ),
+                (
+                    "send",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="sending",
+                        to="bal.fiatwallet",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='DepositTrans',
+            name="DepositTrans",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('amount', models.IntegerField(default=0)),
-                ('date_added', models.DateTimeField(auto_now_add=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='bal.compayuser')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("amount", models.IntegerField(default=0)),
+                ("date_added", models.DateTimeField(auto_now_add=True)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="bal.compayuser"
+                    ),
+                ),
             ],
         ),
     ]

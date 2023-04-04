@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CompayUser, FiatWallet, UsdtWallet
+from bal.models import CompayUser, FiatWallet, UsdtWallet
 
 
 class BtcSerializer(serializers.HyperlinkedModelSerializer):
@@ -11,10 +11,11 @@ class BtcSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class FiatSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model = FiatWallet
-        fields = ["balance",]
+        fields = [
+            "balance",
+        ]
 
 
 class CompaySerial(serializers.ModelSerializer):
